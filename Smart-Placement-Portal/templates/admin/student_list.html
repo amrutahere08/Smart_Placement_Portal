@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Student List{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="glass-panel p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">
+                {% if filter_type == 'placed' %} Placed Students {% else %} All Students {% endif %}
+            </h2>
+            <a href="{{ url_for('admin_home') }}" class="btn btn-outline-light btn-sm">&larr; Back to Dashboard</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-borderless text-white">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--glass-border);">
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>CGPA</th>
+                        <th>Skills</th>
+                        {% if filter_type == 'placed' %}
+                        <th>Placed In</th>
+                        {% endif %}
+                        <th>Resume</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if students %}
+                    {% for row in students %}
+                    <tr>
+                        <td>{{ row.fname }} {{ row.lname }}</td>
+                        <td>{{ row.email }}</td>
+                        <td>{{ row.contact }}</td>
+                        <td>{{ row.cgpa if row.cgpa else '-' }}</td>
+                        <td>{{ row.skills if row.skills else '-' }}</td>
+                        {% if filter_type == 'placed' %}
+                        <td class="text-success">{{ row.company_name }}</td>
+                        {% endif %}
+                        <td>
+                            {% if row.resume_path %}
+                            <a href="{{ url_for('static', filename='resumes/' + row.resume_path) }}" target="_blank"
+                                class="text-warning small">View PDF</a>
+                            {% else %}
+                            <span class="text-muted small">-</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted">No students found.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

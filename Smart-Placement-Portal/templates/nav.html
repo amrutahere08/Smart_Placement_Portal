@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+  <div class="container">
+    <!-- Removed Logo/Branding as requested -->
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ml-auto align-items-center">
+        <!-- Force Public Nav on Landing Page (index) even if logged in -->
+        {% if session.user_id and request.endpoint != 'index' %}
+        <!-- Logged In User Navigation -->
+        {% if session.user_type == 'admin' %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('admin_home') }}">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('manage_company') }}">Add Drive</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('resources') }}">Resources</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('student_home') }}">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('experiences') }}">Interview Experience</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('mock_test') }}">Mock Test</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('my_applications') }}">My Applications</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('resources') }}">Resources</a>
+        </li>
+        {% endif %}
+
+        <li class="nav-item ml-3">
+          <a href="{{ url_for('logout') }}" class="btn btn-outline-custom btn-sm">Logout</a>
+        </li>
+
+        {% else %}
+        <!-- Public / Landing Page Navigation -->
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('index', _anchor='users') }}">Roles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="glass-panel p-5">
+                <h2 class="mb-4 text-center">My Profile</h2>
+
+                <form action="{{ url_for('profile') }}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="text-white">Full Name</label>
+                        <input type="text" class="form-control" value="{{ student.fname }} {{ student.lname }}" readonly
+                            style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="text-white">CGPA / Percentage</label>
+                            <input type="number" step="0.1" name="cgpa" class="form-control"
+                                value="{{ student.cgpa if student.cgpa else '' }}" placeholder="e.g. 8.5" required
+                                style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-white">Email</label>
+                            <input type="email" class="form-control" value="{{ student.email }}" readonly
+                                style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-white">Skills (Comma separated)</label>
+                        <textarea name="skills" class="form-control" rows="3" placeholder="Python, Java, SQL..."
+                            style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">{{ student.skills if student.skills else '' }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-white">Resume (PDF)</label>
+                        {% if student.resume %}
+                        <p class="text-success small">Current: {{ student.resume }}</p>
+                        {% else %}
+                        <p class="text-muted small">No resume uploaded</p>
+                        {% endif %}
+                        <input type="file" name="resume" class="form-control-file text-white" accept=".pdf">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary-custom btn-block mt-4">Update Profile</button>
+                </form>
+
+                <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+
+                <h4 class="text-white mb-3">Change Password</h4>
+                <form action="{{ url_for('change_password') }}" method="POST">
+                    <div class="form-group">
+                        <input type="password" name="new_password" class="form-control" placeholder="New Password"
+                            required
+                            style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                    </div>
+                    <button type="submit" class="btn btn-outline-warning btn-block">Change Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

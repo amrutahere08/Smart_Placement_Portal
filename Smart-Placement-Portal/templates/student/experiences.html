@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Interview Experiences{% endblock %}
+{% block content %}
+<div class="container mt-5">
+
+    <!-- Share Form -->
+    <div class="glass-panel p-4 mb-5">
+        <h3 class="text-white mb-3">Share Your Experience</h3>
+        <form action="{{ url_for('share_experience') }}" method="POST">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" name="company" class="form-control mb-3" placeholder="Company Name" required>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="role" class="form-control mb-3" placeholder="Role Offered" required>
+                </div>
+            </div>
+            <textarea name="questions" class="form-control mb-3" rows="3" placeholder="Questions Asked..."
+                required></textarea>
+            <textarea name="tips" class="form-control mb-3" rows="2" placeholder="Tips for Juniors..."
+                required></textarea>
+            <button type="submit" class="btn btn-primary-custom">Share</button>
+        </form>
+    </div>
+
+    <!-- Feed -->
+    <h3 class="text-white mb-4">Recent Stories</h3>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-6 mb-4">
+            <div class="glass-panel p-4 h-100">
+                <div class="d-flex justify-content-between mb-2">
+                    <h5 class="text-success">{{ post.company_name }}</h5>
+                    <span class="text-white-50 small">{{ post.role }}</span>
+                </div>
+                <p class="text-white mb-1"><strong>Q:</strong> {{ post.questions }}</p>
+                <p class="text-warning mb-3"><strong>Tip:</strong> {{ post.tips }}</p>
+                <div class="text-right text-muted small">
+                    - {{ post.fname }} {{ post.lname }} | {{ post.created_at }}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-white">No experiences shared yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

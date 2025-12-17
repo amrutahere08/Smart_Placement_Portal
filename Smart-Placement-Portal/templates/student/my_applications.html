@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}My Applications{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="glass-panel p-4">
+        <h2 class="mb-4">My Applications</h2>
+
+        <div class="table-responsive">
+            <table class="table table-borderless text-white">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--glass-border);">
+                        <th>Company</th>
+                        <th>Drive Date</th>
+                        <th>Status</th>
+                        <th>Interview Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if applications %}
+                    {% for row in applications %}
+                    <tr>
+                        <td>{{ row.company_name }}</td>
+                        <td>{{ row.curdate }}</td>
+                        <td>
+                            <span
+                                class="badge badge-{{ 'success' if row.status == 'Selected' else 'primary' if row.status == 'Applied' else 'secondary' }}">
+                                {{ row.status }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if row.interview_date %}
+                            <span
+                                class="{{ 'text-warning font-weight-bold' if row.status == 'Interview Scheduled' else 'text-muted' }}">
+                                {{ row.interview_date }}
+                            </span>
+                            {% else %}
+                            <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">You haven't applied to any drives yet.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

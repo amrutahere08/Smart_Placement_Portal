@@ -1,0 +1,33 @@
+body {
+	background: #121212;
+	color: #e0e0e0;
+	font-family: 'Poppins', sans-serif;
+}
+
+#img1 {
+	/*position: absolute;*/
+	height: 110vh;
+	width: 100%;
+	position: fixed;
+	margin-top: -20px;
+	filter: brightness(0.2) grayscale(0.5);
+	/* Dark background image */
+	opacity: 0.4;
+}
+
+#img1,
+.content {
+	position: absolute;
+}
+
+form {
+	margin-left: 120px;
+}
+
+.text-dark {
+	color: #e0e0e0 !important;
+}
+
+label {
+	color: #e0e0e0;
+}

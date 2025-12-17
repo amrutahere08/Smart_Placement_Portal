@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Recruitment Drives{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="glass-panel p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">All Recruitment Drives</h2>
+            <div>
+                <a href="{{ url_for('manage_company') }}" class="btn btn-primary-custom btn-sm mr-2">+ Add Drive</a>
+                <a href="{{ url_for('admin_home') }}" class="btn btn-outline-light btn-sm">&larr; Back</a>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-borderless text-white">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--glass-border);">
+                        <th>Company</th>
+                        <th>Date</th>
+                        <th>Role</th>
+                        <th>Eligibility (10/12/B.Tech)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if companies %}
+                    {% for comp in companies %}
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <td>
+                            <h5 class="mb-0">{{ comp.name }}</h5>
+                        </td>
+                        <td>{{ comp.curdate }}</td>
+                        <td>{{ comp.det }}</td>
+                        <td>{{ comp.tenth }}% / {{ comp.twelth }}% / {{ comp.btech }}%</td>
+                        <td>
+                            <a href="{{ url_for('view_applicants', company_id=comp.id) }}"
+                                class="btn btn-sm btn-outline-light mr-1">View Apps</a>
+                            <a href="{{ url_for('delete_company', id=comp.id) }}" class="btn btn-sm btn-outline-danger"
+                                onclick="return confirm('Delete {{ comp.name }}? This will remove all applications too.');">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">No drives found.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

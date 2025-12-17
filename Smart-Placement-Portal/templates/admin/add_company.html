@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Company{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="glass-panel p-5">
+                <h2 class="mb-4 text-center">Add Recruitment Drive</h2>
+
+                <form action="{{ url_for('manage_company') }}" method="POST">
+                    <div class="form-group">
+                        <label class="text-white">Company Name</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="text-white">Date of Drive</label>
+                            <input type="date" name="curdate" class="form-control" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-white">Eligible Branches</label>
+                            <input type="text" name="branch" class="form-control" placeholder="CSE, ISE, ECE..."
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-white">Role & Package Details</label>
+                        <textarea name="det" class="form-control" rows="3" placeholder="SDE Role, 12LPA..."
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary-custom btn-block mt-4">Post Drive</button>
+                    <a href="{{ url_for('admin_home') }}" class="btn btn-outline-custom btn-block">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

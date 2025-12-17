@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up - PMS{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="glass-panel p-5 my-5">
+                    <h2 class="text-center mb-5">Create Student Account</h2>
+
+                    {% with messages = get_flashed_messages(category_filter=["danger", "success"]) %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ 'success' if 'success' in message else 'danger' }} mb-4" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+
+                    <form action="{{ url_for('register') }}" method="POST" class="needs-validation" novalidate>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" name="fname" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" name="lname" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>Username</label>
+                                <input type="text" class="form-control" name="username" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Student ID (Optional)</label>
+                                <input type="text" class="form-control" name="cid">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>Email Address</label>
+                                <input type="email" class="form-control" name="mailid" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Phone Number</label>
+                                <input type="tel" pattern="^\d{10}$" class="form-control" name="phone" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>Password</label>
+                                <input type="password" class="form-control" name="pwd1" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Confirm Password</label>
+                                <input type="password" class="form-control" name="pwd2" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3">
+                                <label>Security Question</label>
+                                <select class="form-control" name="secque" required>
+                                    <option>Which is Favourite Food?</option>
+                                    <option>Which is your First Phone?</option>
+                                    <option>Which is your Favourite Mobile Company?</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Answer</label>
+                                <input type="text" class="form-control" name="secans" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" name="signup" class="btn btn-primary-custom btn-block w-100">Sign
+                            Up</button>
+
+                        <div class="text-center mt-4">
+                            <span class="text-muted">Already have an account? </span>
+                            <a href="{{ url_for('login') }}" style="color: var(--secondary);">Login</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+{% endblock %}
