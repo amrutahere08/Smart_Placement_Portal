@@ -115,7 +115,7 @@ _Note: You can register new students via the Register page._
 
 1.  **Admin Setup:** Log in as Admin. Go to "Manage Company" to post a new job drive.
 2.  **Student Apply:** Log in as Student. View the "Companies" list or "Feed". valid drives will appear. Click "Apply".
-    *   *Constraint Check:* The system will block applications if your CGPA is lower than the company's requirement.
+    Constraint Check:* The system will block applications if your CGPA is lower than the company's requirement.
 3.  **Process Application:** Admin goes to "View Applicants", sees the new application, and changes status to "Interview Scheduled" or "Selected".
 4.  **Notification:** Student checks "My Applications" to see the status update.
 
